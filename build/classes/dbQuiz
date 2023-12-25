@@ -1,0 +1,36 @@
+create database dbQuiz
+
+use dbQuiz 
+go
+
+create table tbUser
+(
+    userID int IDENTITY(1,1) not null,
+    fullname NVARCHAR(50) not null,
+    birthday date,
+    gender nVARCHAR(9),
+    phone int unique,
+    CONSTRAINT PK_user PRIMARY KEY NONCLUSTERED(userID),
+    CHECK(gender in('Nam', 'Nữ', 'Khác'))
+);
+SET DATEFORMAT DMY
+Insert tbUser Values
+('Lê Đức Minh','03/03/2000','Nam',09021234 )
+go
+select * from tbUser
+go
+create table tbAccount
+(
+    userID int IDENTITY(1,1) not null,
+    username NVARCHAR(50) not null unique,
+    password varchar(50) not null,
+    role nvarchar(9),
+    email nvarchar(50) not null,
+    CONSTRAINT PK_username PRIMARY KEY NONCLUSTERED(username),
+    CONSTRAINT CK_userID FOREIGN KEY (userID) REFERENCES tbUser(userID),
+    CHECK(role in('Admin', 'Player'))
+);
+go
+select * from tbAccount
+
+
